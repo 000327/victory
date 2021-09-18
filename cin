@@ -1,0 +1,22 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+void file(const char* filename)
+{
+ifstream infile(filename,ios::in);
+if(!infile) {cout<<"open error!"<<endl; exit(1);}
+char a;
+while(infile.get(a)) {cout<<a<<endl;}
+infile.close();
+}
+int main(void)
+{
+	int n;
+string fn;
+cin>>fn>>n;
+
+file(fn.c_str());
+
+return 0;
+}
