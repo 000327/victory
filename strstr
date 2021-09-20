@@ -1,0 +1,25 @@
+        char Uart2_Buf[11] = "abSTARTdend;
+        char Mystr1[20] = {0};
+        char *Mystr=Mystr1;
+ 
+        
+        void test_strstr()
+        {
+            if(strstr(Uart2_Buf , "START") != NULL)
+            {
+                Mystr = strstr(Uart2_Buf , "START");
+                CLR_Buf2();
+                printf("Mystr=%s ",Mystr);
+            }
+        }
+       
+        void CLR_Buf2(void)
+        {
+            u16 k;
+ 
+                for(k=0;k<11;k++)      
+                {
+                    Uart2_Buf[k] = 0X00;
+                }
+ 
+        }
