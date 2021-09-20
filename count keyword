@@ -1,0 +1,57 @@
+#include<iostream>
+#include<stdlib.h>
+#include<fstream>
+#include<string.h>
+
+using namespace std;
+
+#define MAXSIZE 10000
+int main(int argc, char *argv[]) {
+	char sourcecode[MAXSIZE],*p,*q;
+	 
+	int rank = atoi(argv[2]);
+	
+	int count = 0,i=0;
+	
+	
+	char keywords[32][10] = { 
+	    "auto", "break", "case","char",
+        "const", "continue", "default", "do",
+        "double", "else", "enum", "extern",
+        "float", "for", "goto", "if",
+        "int", "long", "register", "return",
+        "short", "signed", "sizeof", "static",
+        "struct", "switch", "typedef", "union",
+        "unsigned", "void", "volatile", "while"
+	 };
+    
+	 
+	ifstream inFile(argv[1], ios::in | ios::binary);
+	if (!inFile) {
+		cout << "error" << endl;
+		return 0;
+	}
+	
+	 
+	inFile.read(sourcecode, MAXSIZE);
+	
+	 
+	for (i = 0; i < 32; i++) {
+		p = sourcecode;
+		p=strstr(p, keywords[i]); 
+		
+		while (p) {
+			q=p+strlen(keywords[i]);
+			if(*(p-1)!='_' && (!(*(p-1)<='z'&&*(p-1)>='a')) && (!(*(p-1)<='Z'&&*(p-1)>='A')) && *(q)!='_' && (!(*(q)<='z'&&*(q)>='a')) && (!(*(q)<='Z'&&*(q)>='A'))){
+				count++;
+			}
+			p = (strstr(p, keywords[i])+strlen(keywords[i]));
+			p=strstr(p, keywords[i]); 
+		}
+	}
+	
+
+	cout<<"total num:"<<count<<endl;
+	inFile.close();
+	return 0;
+}
